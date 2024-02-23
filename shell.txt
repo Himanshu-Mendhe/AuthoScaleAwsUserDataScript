@@ -1,0 +1,29 @@
+#!/bin/bash
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+cd /home/ubuntu/
+sudo apt update -y
+sudo apt install nodejs -y
+sudo apt install npm -y
+mkdir -p /home/ubuntu/.ssh
+ssh-keyscan -t rsa github.com > /home/ubuntu/.ssh/known_hosts
+git clone <github repo link>
+cd <path to microservice>
+sudo npm install
+# start the app
+sudo npx pm2 start index.js 
+
+
+
+EXPLANATION-
+2- to log all the data and all which we pass 
+3- going inside ubuntu
+4- we have to update the linux when we start it.
+    -y stands for if it asks yes/no then yes
+5- node install
+6- npm install
+7-8- mandatory lines for initializing git 
+9- cloning git in ubuntu
+10- opening the microservice
+11- npm install to install all the packages
+12- use pm2 so that our local machin is not busy with it and it should not stop if our local machine stops
+    
